@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import { Fragment } from "react";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -57,50 +58,57 @@ const Cart = () => {
       </Head>
       <main className={classes.main}>
         <h1>Cart</h1>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Product name</StyledTableCell>
-                <StyledTableCell align="right">Price</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {Object.keys(products).map((key) => (
-                <StyledTableRow key={key}>
-                  <StyledTableCell component="th" scope="row">
-                    {products[key].name}
-                  </StyledTableCell>
 
-                  <StyledTableCell align="right">
-                    ${Math.round(products[key].discountPrice * 100) / 100}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <div className={classes.totalContainer}>
-          <TableContainer className={classes.total} component={Paper}>
-            <Table aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Total</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <StyledTableRow>
-                  <StyledTableCell component="th" scope="row">
-                    $
-                    {hasDiscount
-                      ? Math.round(total.discountPrices * 100) / 100
-                      : Math.round(total.defaultPrices * 100) / 100}
-                  </StyledTableCell>
-                </StyledTableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
+        {Object.keys(products).length > 0 ? (
+          <Fragment>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Product name</StyledTableCell>
+                    <StyledTableCell align="right">Price</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {Object.keys(products).map((key) => (
+                    <StyledTableRow key={key}>
+                      <StyledTableCell component="th" scope="row">
+                        {products[key].name}
+                      </StyledTableCell>
+
+                      <StyledTableCell align="right">
+                        ${Math.round(products[key].discountPrice * 100) / 100}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <div className={classes.totalContainer}>
+              <TableContainer className={classes.total} component={Paper}>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>Total</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <StyledTableRow>
+                      <StyledTableCell component="th" scope="row">
+                        $
+                        {hasDiscount
+                          ? Math.round(total.discountPrices * 100) / 100
+                          : Math.round(total.defaultPrices * 100) / 100}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          </Fragment>
+        ) : (
+          <p>Your shopping cart is empty</p>
+        )}
       </main>
     </Layout>
   );
