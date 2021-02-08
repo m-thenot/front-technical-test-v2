@@ -42,15 +42,21 @@ const Header = () => {
   return (
     <header className={classes.root}>
       <div className={classes.content}>
-        <Typography variant="h5" component="div">
-          Next JS / Algolia Application
-        </Typography>
+        <Link href="/">
+          <a>
+            <Typography variant="h5" component="div">
+              Next JS / Algolia Application
+            </Typography>
+          </a>
+        </Link>
         <Link href="/cart">
-          <IconButton aria-label="cart">
-            <StyledBadge badgeContent={count} color="primary">
-              <ShoppingCartIcon htmlColor="white" />
-            </StyledBadge>
-          </IconButton>
+          <a>
+            <IconButton aria-label="cart">
+              <StyledBadge badgeContent={count} color="primary">
+                <ShoppingCartIcon htmlColor="white" />
+              </StyledBadge>
+            </IconButton>
+          </a>
         </Link>
       </div>
     </header>

@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 const Product = ({ hit }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const productsCart = useSelector((state) => state.cart.products);
+  const { products, hasDiscount } = useSelector((state) => state.cart);
 
   return (
     <Card className={classes.card}>
@@ -35,11 +35,16 @@ const Product = ({ hit }) => {
           <Typography variant="h5" component="h2">
             <Highlight attribute="name" hit={hit} />
           </Typography>
-          <Typography className={classes.price}>{hit.salePrice}€</Typography>
+          <Typography className={classes.price}>
+            $
+            {hasDiscount && hit.salePrice >= 250
+              ? Math.round(hit.salePrice * 0.5 * 100) / 100 + " (-50%)"
+              : hit.salePrice}
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {productsCart[hit.objectID] ? (
+        {products[hit.objectID] ? (
           <Button
             variant="contained"
             color="secondary"
