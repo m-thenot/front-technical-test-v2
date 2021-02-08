@@ -2,11 +2,14 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { Highlight } from "react-instantsearch-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "./../actions/cart.actions";
 
 const useStyles = makeStyles({
   card: {
@@ -17,27 +20,42 @@ const useStyles = makeStyles({
     marginTop: "10px",
     fontWeight: "bold",
   },
-  media: {
-    height: 0,
-    paddingTop: "56.25%",
-  },
 });
 
 const Product = ({ hit }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const productsCart = useSelector((state) => state.cart.products);
+
   return (
     <Card className={classes.card}>
-      <CardMedia className={classes.media} image={hit.image} />
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          <Highlight attribute="name" hit={hit} />
-        </Typography>
-        <Typography className={classes.price}>{hit.salePrice}€</Typography>
-      </CardContent>
+      <CardActionArea>
+        <CardMedia component="img" height="150" image={hit.image} />
+        <CardContent>
+          <Typography variant="h5" component="h2">
+            <Highlight attribute="name" hit={hit} />
+          </Typography>
+          <Typography className={classes.price}>{hit.salePrice}€</Typography>
+        </CardContent>
+      </CardActionArea>
       <CardActions>
-        <Button variant="contained" color="primary">
-          Add to Cart
-        </Button>
+        {productsCart[hit.objectID] ? (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => dispatch(removeFromCart(hit))}
+          >
+            Remove from cart
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => dispatch(addToCart(hit))}
+          >
+            Add to Cart
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
