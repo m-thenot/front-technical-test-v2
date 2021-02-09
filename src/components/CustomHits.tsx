@@ -2,6 +2,9 @@ import { connectHits } from "react-instantsearch-dom";
 import Product from "./Product";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
+import { HitsProvided } from "react-instantsearch-core";
+import ProductRecord from "../types/product";
 
 const useStyles = makeStyles({
   root: {
@@ -10,7 +13,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Hits = ({ hits }) => {
+type Props = HitsProvided<ProductRecord>;
+
+const Hits: React.FC<Props> = ({ hits }) => {
   const classes = useStyles();
   return (
     <Grid container spacing={3} className={classes.root}>
@@ -23,4 +28,4 @@ const Hits = ({ hits }) => {
   );
 };
 
-export default connectHits(Hits);
+export default connectHits<Props, ProductRecord>(Hits);

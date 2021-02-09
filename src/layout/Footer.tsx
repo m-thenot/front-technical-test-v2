@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Footer = () => {
+const Footer: React.FC = () => {
   const classes = useStyles();
 
   return (

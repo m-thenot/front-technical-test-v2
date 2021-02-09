@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import { Fragment } from "react";
+import { RootState } from "src/reducers";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -47,9 +48,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const classes = useStyles();
-  const { products, total, hasDiscount } = useSelector((state) => state.cart);
+  const { products, total, hasDiscount } = useSelector(
+    (state: RootState) => state.cart
+  );
 
   return (
     <Layout>

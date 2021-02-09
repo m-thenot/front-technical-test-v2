@@ -9,6 +9,7 @@ import {
 import CustomHits from "src/components/CustomHits";
 import Layout from "src/layout";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const searchClient = algoliasearch(
   "latency",
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Home() {
+const Home: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -39,4 +40,6 @@ export default function Home() {
       </main>
     </Layout>
   );
-}
+};
+
+export default Home;

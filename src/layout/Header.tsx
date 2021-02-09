@@ -5,6 +5,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import { useSelector } from "react-redux";
+import React from "react";
+import { RootState } from "../reducers";
 
 const useStyles = makeStyles({
   root: {
@@ -27,17 +29,17 @@ const useStyles = makeStyles({
   },
 });
 
-const StyledBadge = withStyles((theme) => ({
+const StyledBadge = withStyles({
   badge: {
     right: -3,
     top: 5,
     padding: "0 4px",
   },
-}))(Badge);
+})(Badge);
 
-const Header = () => {
+const Header: React.FC = () => {
   const classes = useStyles();
-  const count = useSelector((state) => state.cart.count);
+  const count = useSelector((state: RootState) => state.cart.count);
 
   return (
     <header className={classes.root}>

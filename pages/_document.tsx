@@ -1,13 +1,14 @@
 import { ServerStyleSheets } from "@material-ui/core/styles";
-import Document, { Head, Html, Main, NextScript } from "next/document";
+import Document, {
+  Head,
+  Html,
+  Main,
+  NextScript,
+  DocumentContext,
+} from "next/document";
 import React from "react";
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
-
   render() {
     return (
       <Html lang="fr">
@@ -34,7 +35,7 @@ export default MyDocument;
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).
-MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Resolution order
   //
   // On the server:

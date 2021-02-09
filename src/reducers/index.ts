@@ -1,19 +1,25 @@
 import { HYDRATE } from "next-redux-wrapper";
-import { combineReducers } from "redux";
+import { combineReducers, AnyAction } from "redux";
 
-import cartReducer from "./cart.reducer";
+import cartReducer, { CartState } from "./cart.reducer";
 
-const combinedReducer = combineReducers({
+export interface RootState {
+  cart: CartState;
+}
+
+const combinedReducer = combineReducers<RootState>({
   cart: cartReducer,
 });
 
-export const rootReducer = (state, action) => {
+export const rootReducer = (
+  state: RootState | undefined,
+  action: AnyAction
+) => {
   if (action.type === HYDRATE) {
     const nextState = {
       ...state, // use previous state
       ...action.payload, // apply delta from hydration
     };
-    if (state.count) nextState.count = state.count; // preserve count value on client side navigation
     return nextState;
   }
   return combinedReducer(state, action);

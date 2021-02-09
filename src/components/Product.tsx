@@ -6,10 +6,12 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
 import { Highlight } from "react-instantsearch-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "./../actions/cart.actions";
+import { addToCart, removeFromCart } from "../actions/cart.actions";
+import ProductRecord from "../types/product";
+import React from "react";
+import { RootState } from "../reducers";
 
 const useStyles = makeStyles({
   card: {
@@ -22,10 +24,16 @@ const useStyles = makeStyles({
   },
 });
 
-const Product = ({ hit }) => {
+interface Props {
+  hit: ProductRecord;
+}
+
+const Product: React.FC<Props> = ({ hit }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { products, hasDiscount } = useSelector((state) => state.cart);
+  const { products, hasDiscount } = useSelector(
+    (state: RootState) => state.cart
+  );
 
   return (
     <Card className={classes.card}>
@@ -64,10 +72,6 @@ const Product = ({ hit }) => {
       </CardActions>
     </Card>
   );
-};
-
-Product.propTypes = {
-  hit: PropTypes.object.isRequired,
 };
 
 export default Product;

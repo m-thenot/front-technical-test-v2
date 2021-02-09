@@ -1,8 +1,24 @@
 /* eslint-disable no-param-reassign */
 import constants from "../actions/constants";
 import produce from "immer";
+import { CartProduct } from "../types/product";
+import { AnyAction } from "redux";
 
-const initialState = {
+interface Products {
+  [key: string]: CartProduct;
+}
+
+export interface CartState {
+  products: Products;
+  count: number;
+  total: {
+    defaultPrices: number;
+    discountPrices: number;
+  };
+  hasDiscount: boolean;
+}
+
+const initialState: CartState = {
   products: {},
   count: 0,
   total: {
@@ -12,7 +28,7 @@ const initialState = {
   hasDiscount: false,
 };
 
-const cartReducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action: AnyAction) => {
   return produce(state, (draft) => {
     switch (action.type) {
       /* ADD PRODUCT TO CART */

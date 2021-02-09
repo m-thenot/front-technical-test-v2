@@ -1,12 +1,15 @@
 import Container from "@material-ui/core/Container";
 
-import PropTypes from "prop-types";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = ({ children }) => {
+interface Props {
+  children: NonNullable<React.ReactNode>;
+}
+
+const Layout: React.FC<Props> = ({ children }) => {
   return (
     <Fragment>
       <Header />
@@ -14,10 +17,6 @@ const Layout = ({ children }) => {
       <Footer />
     </Fragment>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.any.isRequired,
 };
 
 export default Layout;
